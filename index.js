@@ -267,8 +267,26 @@ module.exports.i18n = require('./i18n/');
 module.exports.getTv4 = getTv4;
 module.exports.subSchemas = subSchemas;
 module.exports.units = require('./schemas/definitions').definitions.units;
-module.exports.metadata = require('./keyswithmetadata');
 module.exports.FullSignalK = FullSignalK;
 module.exports.fakeMmsiId = "urn:mrn:imo:mmsi:230099999";
 module.exports.getSourceId = getSourceId;
 module.exports.keyForSourceIdPath = keyForSourceIdPath;
+
+module.exports.metadata = require('./keyswithmetadata');
+
+var metadataByRegex = []
+_.forIn(module.exports.metadata, (value, key) => {
+  const regexpKey = '^' + key.replace(/\*/g, '.*').replace(/RegExp/g, '.*') + '$'
+  if(!regexpKey.endsWith('.*$')) {
+    metadataByRegex.push({
+      regexp: new RegExp(regexpKey),
+      metadata: value
+    })
+  }
+})
+
+module.exports.getUnits = function (path) {
+  const vesselPath = '/vessels/_/' + path.replace(/\./g, '/')
+  const result = metadataByRegex.find(entry => entry.regexp.test(vesselPath))
+  return result ? result.metadata.units : undefined
+}
