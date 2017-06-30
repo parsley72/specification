@@ -2,7 +2,7 @@
   "name": "signalk-schema",
   "version": "0.9.0-SNAPSHOT",
   "description": "SignalK specification schema as an npm module with tests",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
     "dist": "babel src --out-dir dist --copy-files",
