@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
-    "dist": "babel src --out-dir dist --copy-files",
+    "js:watch": "babel --watch src --out-dir dist --copy-files",
+    "js:dist": "babel src --out-dir dist --copy-files",
     "schema:version": "replace 'https://signalk.org/specification/[^/]+/schemas/' 'https://signalk.org/specification/'$npm_package_version'/schemas/' . -r --include='*.j*' --exclude='package.json' ",
     "schema:publish": "git checkout gh-pages && git checkout master -- schemas && mkdir $npm_package_version && git add $npm_package_version && git mv schemas/ $npm_package_version/ && git commit -m 'Schemas from master' && git push",
     "docs:changelog": "github-changes -f gitbook-docs/changelog.md -o signalk -r specification -a --only-pulls --use-commit-body --data=pulls",
