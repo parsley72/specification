@@ -4,7 +4,7 @@
   "description": "SignalK specification schema as an npm module with tests",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "babel src --out-dir dist --copy-files && mocha",
     "js:watch": "babel --watch src --out-dir dist --copy-files",
     "js:dist": "babel src --out-dir dist --copy-files",
     "schema:version": "replace 'https://signalk.org/specification/[^/]+/schemas/' 'https://signalk.org/specification/'$npm_package_version'/schemas/' . -r --include='*.j*' --exclude='package.json' ",
